@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Método de Pago</title>
+
+    <!-- Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        body{
+            background:#f5f5f5;
+        }
+
+        .payment-card{
+            max-width:700px;
+            margin:50px auto;
+            background:#fff;
+            padding:30px;
+            border-radius:15px;
+            box-shadow:0 0 15px rgba(0,0,0,.15);
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="payment-card">
+
+        <h2 class="text-center mb-4">Método de Pago</h2>
+
+        <form>
+
+            <div class="mb-3">
+                <label class="form-label">Seleccione un método de pago</label>
+
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="pago" id="tarjeta" checked>
+                    <label class="form-check-label" for="tarjeta">
+                        Tarjeta de Crédito / Débito
+                    </label>
+                </div>
+
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="pago" id="paypal">
+                    <label class="form-check-label" for="paypal">
+                        PayPal
+                    </label>
+                </div>
+
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="pago" id="transferencia">
+                    <label class="form-check-label" for="transferencia">
+                        Transferencia Bancaria
+                    </label>
+                </div>
+            </div>
+
+            <hr>
+
+            <div class="mb-3">
+                <label class="form-label">Nombre del titular</label>
+                <input type="text" class="form-control" placeholder="Juan Pérez">
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Número de tarjeta</label>
+                <input type="text" class="form-control" placeholder="1234 5678 9012 3456">
+            </div>
+
+            <div class="row">
+
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Fecha de vencimiento</label>
+                    <input type="month" class="form-control">
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">CVV</label>
+                    <input type="password" class="form-control" maxlength="4" placeholder="123">
+                </div>
+
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Dirección de facturación</label>
+                <textarea class="form-control" rows="3"></textarea>
+            </div>
+
+            <div class="d-grid">
+                <button class="btn btn-primary btn-lg">
+                    Confirmar Pago
+                </button>
+            </div>
+
+        </form>
+
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

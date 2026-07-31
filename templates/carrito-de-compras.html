@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrito de Compras</title>
+
+    <!-- Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+
+<div class="container my-5">
+
+    <h2 class="text-center mb-4">🛒 Carrito de Compras</h2>
+
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover align-middle text-center">
+            <thead class="table-dark">
+                <tr>
+                    <th>Producto</th>
+                    <th>Imagen</th>
+                    <th>Precio</th>
+                    <th>Cantidad</th>
+                    <th>Subtotal</th>
+                    <th>Acción</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                <tr>
+                    <td>Perfume 9PM</td>
+                    <td>
+                        <img src="https://via.placeholder.com/80" class="img-fluid rounded">
+                    </td>
+                    <td>$45.00</td>
+                    <td>
+                        <input type="number" class="form-control text-center" value="1" min="1">
+                    </td>
+                    <td>$45.00</td>
+                    <td>
+                        <button class="btn btn-danger btn-sm">
+                            Eliminar
+                        </button>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>Reloj Deportivo</td>
+                    <td>
+                        <img src="https://via.placeholder.com/80" class="img-fluid rounded">
+                    </td>
+                    <td>$80.00</td>
+                    <td>
+                        <input type="number" class="form-control text-center" value="2" min="1">
+                    </td>
+                    <td>$160.00</td>
+                    <td>
+                        <button class="btn btn-danger btn-sm">
+                            Eliminar
+                        </button>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+    </div>
+
+    <div class="row mt-4">
+
+        <div class="col-md-6">
+            <a href="productos.html" class="btn btn-secondary">
+                ← Seguir Comprando
+            </a>
+        </div>
+
+        <div class="col-md-6 text-end">
+
+            <h4>Total: <span class="text-success">$205.00</span></h4>
+
+            <a href="metodoPago.html" class="btn btn-success btn-lg mt-2">
+                Finalizar Compra
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

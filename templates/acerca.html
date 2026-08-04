@@ -1,47 +1,35 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Acerca de</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
-<body class="bg-light">
+{% extends "base.html" %}
+{% block title %}Acerca de — Yangh Store{% endblock %}
+{% block content %}
 
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-        <div class="container">
-            <a class="navbar-brand" href="/">Mi Web Flask</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="/">Inicio</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" href="/acerca">Acerca de</a>
-                    </li>
-                </ul>
+<div class="container py-5">
+    <div class="text-center mb-5">
+        <h1 class="mb-3">Sobre Yangh Store</h1>
+        <p class="lead text-muted">Una tienda en línea construida con Flask, pensada para practicar desarrollo web full-stack.</p>
+    </div>
+    <div class="row g-4">
+        <div class="col-md-4">
+            <div class="p-4 h-100 feature-card">
+                <h3 class="h5">🧩 Stack</h3>
+                <p class="text-muted mb-0">Flask, SQLAlchemy y Bootstrap 5 trabajando juntos para una experiencia moderna.</p>
             </div>
         </div>
-    </nav>
-
-    <!-- Sección principal -->
-    <div class="container py-5">
-        <div class="text-center">
-            <h1 class="mb-4">Sobre este proyecto 🧩</h1>
-            <p class="lead">Esta página fue creada con <b>Flask</b> y <b>Bootstrap</b> como parte de un pequeño proyecto de práctica.</p>
-            <p>Flask es un framework de Python ligero y fácil de usar para crear aplicaciones web modernas.</p>
-            <a href="/" class="btn btn-primary mt-3">Volver al inicio</a>
+        <div class="col-md-4">
+            <div class="p-4 h-100 feature-card">
+                <h3 class="h5">🔒 Cuentas reales</h3>
+                <p class="text-muted mb-0">Registro e inicio de sesión con contraseñas cifradas.</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="p-4 h-100 feature-card">
+                <h3 class="h5">🛒 Carrito funcional</h3>
+                <p class="text-muted mb-0">Agrega, actualiza y elimina productos, luego finaliza tu compra.</p>
+            </div>
         </div>
     </div>
+    <div class="text-center mt-5">
+        <a href="{{ url_for('main.tienda') }}" class="btn btn-accent btn-lg">Ir a la tienda</a>
+    </div>
+</div>
 
-    <footer class="bg-primary text-white text-center py-3 mt-5">
-        <p class="mb-0">&copy; 2025 Mi Proyecto Flask</p>
-    </footer>
-
-    <script src="https://cdn..net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>
+{% endblock %}

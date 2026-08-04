@@ -1,97 +1,42 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Página principal</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
+{% extends "base.html" %}
+{% block title %}Yangh Store — Inicio{% endblock %}
+{% block content %}
 
-<body class="bg-light">
-
-<!-- Navbar -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-    <div class="container">
-        <a class="navbar-brand" href="/">Yangh_Store</a>
-
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ms-auto">
-
-                <li class="nav-item">
-                    <a class="nav-link active" href="/">Inicio</a>
-                </li>
-
-                <li class="nav-item">
-                    <a class="nav-link" href="/acerca">Acerca de</a>
-                </li>
-
-            </ul>
+<section class="hero">
+    <div class="container py-5">
+        <div class="row align-items-center">
+            <div class="col-lg-7">
+                <h1 class="display-5 fw-bold">Todo lo que necesitas, a un clic.</h1>
+                <p class="lead">Relojes, perfumes y climatización con envío rápido y precios justos.</p>
+                <a href="{{ url_for('main.tienda') }}" class="btn btn-accent btn-lg mt-2">Ver tienda</a>
+            </div>
         </div>
     </div>
-</nav>
+</section>
 
-
-<!-- Bienvenida -->
-<div class="container py-5 text-center">
-
-<h1 class="display-4">¡Bienvenidos a Yangh_Store! </h1>
-
-<p class="lead mt-3">
-Esta página usa <b>Flask</b> y <b>Bootstrap</b> para verse moderna.
-</p>
-
+<div class="container py-5">
+    <div class="d-flex justify-content-between align-items-end mb-4">
+        <h2 class="mb-0">Productos destacados</h2>
+        <a href="{{ url_for('main.tienda') }}" class="link-accent">Ver todos →</a>
+    </div>
+    <div class="row g-4">
+        {% for producto in productos %}
+            {% include "_producto_card.html" %}
+        {% endfor %}
+    </div>
 </div>
 
-
-<!-- PRODUCTOS -->
-<div class="container pb-5">
-
-<h2 class="text-center mb-4">Nuestros Productos</h2>
-
-<div class="row">
-
-{% for producto in productos %}
-
-<div class="col-md-4 col-lg-3 mb-4">
-
-<div class="card h-100 shadow-sm">
-
-<img src="{{ producto.foto }}" class="card-img-top" alt="{{ producto.titulo }}">
-
-<div class="card-body text-center">
-
-<h5 class="card-title">{{ producto.titulo }}</h5>
-
-<p class="text-success fw-bold">$ {{ producto.precio }}</p>
-
-<button class="btn btn-primary btn-sm">
-Ver producto
-</button>
-
+<div class="bg-soft py-5">
+    <div class="container">
+        <h2 class="text-center mb-4">Categorías</h2>
+        <div class="row g-3 justify-content-center">
+            {% for cat in categorias %}
+            <div class="col-6 col-md-3">
+                <a href="{{ url_for('main.tienda', categoria=cat) }}" class="categoria-pill">{{ cat }}</a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
 </div>
 
-</div>
-
-</div>
-
-{% endfor %}
-
-</div>
-
-</div>
-
-
-<!-- Footer -->
-<footer class="bg-primary text-white text-center py-3 mt-5">
-<p class="mb-0">&copy; 2025 Yangh_Store</p>
-</footer>
-
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-
-</body>
-</html>
+{% endblock %}

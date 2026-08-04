@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% block title %}Pedido #{{ orden.id }} — Yangh Store{% endblock %}
+{% block content %}
+
+<div class="container py-5">
+    <div class="text-center mb-4">
+        <div class="confirmation-icon mb-3">{% if orden.estado == "Entregado" %}✔{% else %}📦{% endif %}</div>
+        <h1 class="mb-2">Pedido #{{ orden.id }}</h1>
+        <p class="text-muted">Realizado el {{ orden.fecha.strftime("%d/%m/%Y %H:%M") }}</p>
+    </div>
+
+    {% set pasos = ["Pendiente", "Procesando", "Enviado", "Entregado"] %}
+    {% if orden.estado in pasos %}
+    <div class="tracker mx-auto mb-4" style="max-width:700px">
+        {% set paso_actual = pasos.index(orden.estado) %}
+        <div class="tracker-steps">
+            {% for paso in pasos %}
+            <div class="tracker-step {% if loop.index0 <= paso_actual %}done{% endif %} {% if loop.index0 == paso_actual %}current{% endif %}">
+                <div class="tracker-dot"></div>
+                <span class="tracker-label">{{ paso }}</span>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% else %}
+    <p class="text-center text-danger fw-bold mb-4">Este pedido fue cancelado.</p>
+    {% endif %}
+
+    {% if orden.despachador %}
+    <p class="text-center text-muted mb-4">🚚 Tu pedido está a cargo de <strong>{{ orden.despachador.nombre }}</strong></p>
+    {% endif %}
+
+    <div class="order-summary text-start mx-auto mt-4" style="max-width:600px">
+        <ul class="list-unstyled mb-0">
+            {% for item in orden.items %}
+            <li class="d-flex justify-content-between py-2 border-bottom">
+                <span>{{ item.titulo }} × {{ item.cantidad }}</span>
+                <span class="fw-semibold">${{ "%.2f"|format(item.precio_unitario * item.cantidad) }}</span>
+            </li>
+            {% endfor %}
+        </ul>
+        <div class="d-flex justify-content-between pt-3 fs-5 fw-bold">
+            <span>Total pagado</span>
+            <span class="text-price">${{ "%.2f"|format(orden.total) }}</span>
+        </div>
+    </div>
+
+    <div class="text-center mt-4">
+        <a href="{{ url_for('cart.mis_pedidos') }}" class="btn btn-secondary me-2">Mis pedidos</a>
+        <a href="{{ url_for('main.tienda') }}" class="btn btn-accent">Seguir comprando</a>
+    </div>
+</div>
+
+{% endblock %}

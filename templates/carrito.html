@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% block title %}Carrito — Yangh Store{% endblock %}
+{% block content %}
+
+<div class="container py-5">
+    <h1 class="mb-4">🛒 Carrito de compras</h1>
+
+    {% if not lineas %}
+    <div class="text-center py-5">
+        <p class="text-muted fs-5">Tu carrito está vacío.</p>
+        <a href="{{ url_for('main.tienda') }}" class="btn btn-accent">Ir a la tienda</a>
+    </div>
+    {% else %}
+    <div class="table-responsive">
+        <table class="table align-middle">
+            <thead>
+                <tr>
+                    <th>Producto</th>
+                    <th>Precio</th>
+                    <th>Cantidad</th>
+                    <th>Subtotal</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for linea in lineas %}
+                <tr>
+                    <td class="d-flex align-items-center gap-3">
+                        <img src="{{ url_for('static', filename='img/' + linea.producto.imagen) }}" class="cart-thumb" alt="">
+                        <a href="{{ url_for('main.producto_detalle', producto_id=linea.producto.id) }}" class="text-decoration-none fw-semibold text-reset">{{ linea.producto.titulo }}</a>
+                    </td>
+                    <td>${{ "%.2f"|format(linea.producto.precio) }}</td>
+                    <td style="max-width:110px">
+                        <form method="POST" action="{{ url_for('cart.actualizar', producto_id=linea.producto.id) }}">
+                            <input type="number" name="cantidad" value="{{ linea.cantidad }}" min="1" class="form-control form-control-sm" onchange="this.form.submit()">
+                        </form>
+                    </td>
+                    <td class="fw-bold">${{ "%.2f"|format(linea.subtotal) }}</td>
+                    <td>
+                        <form method="POST" action="{{ url_for('cart.eliminar', producto_id=linea.producto.id) }}">
+                            <button class="btn btn-outline-danger btn-sm">Eliminar</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col-md-6">
+            <a href="{{ url_for('main.tienda') }}" class="btn btn-secondary">← Seguir comprando</a>
+        </div>
+        <div class="col-md-6 text-end">
+            <h4>Total: <span class="text-price">${{ "%.2f"|format(total) }}</span></h4>
+            <a href="{{ url_for('cart.pago') }}" class="btn btn-accent btn-lg mt-2">Finalizar compra</a>
+        </div>
+    </div>
+    {% endif %}
+</div>
+
+{% endblock %}

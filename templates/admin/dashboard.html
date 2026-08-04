@@ -1,0 +1,73 @@
+{% extends "admin/layout.html" %}
+{% block title %}Panel admin — Yangh Store{% endblock %}
+{% block admin_content %}
+
+<h1 class="h3 mb-4">Resumen</h1>
+
+<div class="row g-3 mb-4">
+    <div class="col-sm-6 col-lg-3">
+        <div class="stat-card">
+            <span class="stat-number">{{ total_productos }}</span>
+            <span class="stat-label">Productos</span>
+        </div>
+    </div>
+    <div class="col-sm-6 col-lg-3">
+        <div class="stat-card">
+            <span class="stat-number">{{ total_pedidos }}</span>
+            <span class="stat-label">Pedidos</span>
+        </div>
+    </div>
+    <div class="col-sm-6 col-lg-3">
+        <div class="stat-card">
+            <span class="stat-number">{{ pedidos_pendientes }}</span>
+            <span class="stat-label">Pendientes</span>
+        </div>
+    </div>
+    <div class="col-sm-6 col-lg-3">
+        <div class="stat-card">
+            <span class="stat-number">{{ total_usuarios }}</span>
+            <span class="stat-label">Usuarios</span>
+        </div>
+    </div>
+</div>
+
+<div class="row g-4">
+    <div class="col-lg-6">
+        <h2 class="h5 mb-3">Últimos pedidos</h2>
+        <div class="table-responsive">
+            <table class="table table-sm align-middle">
+                <thead><tr><th>#</th><th>Cliente</th><th>Estado</th><th>Total</th></tr></thead>
+                <tbody>
+                    {% for pedido in ultimos_pedidos %}
+                    <tr>
+                        <td><a href="{{ url_for('admin.pedido_detalle', orden_id=pedido.id) }}">#{{ pedido.id }}</a></td>
+                        <td>{{ pedido.user.nombre }}</td>
+                        <td><span class="estado-badge estado-{{ pedido.estado|lower }}">{{ pedido.estado }}</span></td>
+                        <td>${{ "%.2f"|format(pedido.total) }}</td>
+                    </tr>
+                    {% else %}
+                    <tr><td colspan="4" class="text-muted text-center py-3">Aún no hay pedidos.</td></tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="col-lg-6">
+        <h2 class="h5 mb-3">Productos con poco stock</h2>
+        <div class="table-responsive">
+            <table class="table table-sm align-middle">
+                <thead><tr><th>Producto</th><th>Stock</th></tr></thead>
+                <tbody>
+                    {% for producto in bajo_stock %}
+                    <tr>
+                        <td><a href="{{ url_for('admin.producto_editar', producto_id=producto.id) }}">{{ producto.titulo }}</a></td>
+                        <td class="{{ 'text-danger fw-bold' if producto.stock <= 5 else '' }}">{{ producto.stock }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

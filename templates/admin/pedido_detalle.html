@@ -1,0 +1,55 @@
+{% extends "admin/layout.html" %}
+{% block title %}Pedido #{{ orden.id }} — Admin{% endblock %}
+{% block admin_content %}
+
+<h1 class="h3 mb-4">Pedido #{{ orden.id }}</h1>
+
+<div class="row g-4">
+    <div class="col-lg-7">
+        <div class="order-summary mb-4">
+            <p class="mb-1"><strong>Cliente:</strong> {{ orden.user.nombre }} ({{ orden.user.email }})</p>
+            <p class="mb-1"><strong>Fecha:</strong> {{ orden.fecha.strftime("%d/%m/%Y %H:%M") }}</p>
+            <p class="mb-0"><strong>Método de pago:</strong> {{ orden.metodo_pago }}</p>
+        </div>
+        <ul class="list-unstyled">
+            {% for item in orden.items %}
+            <li class="d-flex justify-content-between py-2 border-bottom">
+                <span>{{ item.titulo }} × {{ item.cantidad }}</span>
+                <span class="fw-semibold">${{ "%.2f"|format(item.precio_unitario * item.cantidad) }}</span>
+            </li>
+            {% endfor %}
+        </ul>
+        <div class="d-flex justify-content-between pt-3 fs-5 fw-bold">
+            <span>Total</span>
+            <span class="text-price">${{ "%.2f"|format(orden.total) }}</span>
+        </div>
+    </div>
+    <div class="col-lg-5">
+        <form method="POST" class="order-summary">
+            <h2 class="h6 mb-3">Gestionar pedido</h2>
+            <div class="mb-3">
+                <label class="form-label">Estado</label>
+                <select name="estado" class="form-select">
+                    {% for estado in estados %}
+                    <option value="{{ estado }}" {% if estado == orden.estado %}selected{% endif %}>{{ estado }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Despachador asignado</label>
+                <select name="despachador_id" class="form-select">
+                    <option value="">Sin asignar</option>
+                    {% for d in despachadores %}
+                    <option value="{{ d.id }}" {% if orden.despachador_id == d.id %}selected{% endif %}>{{ d.nombre }}</option>
+                    {% endfor %}
+                </select>
+                {% if not despachadores %}
+                <div class="form-text">No hay despachadores. Asigna el rol desde <a href="{{ url_for('admin.usuarios') }}">Usuarios</a>.</div>
+                {% endif %}
+            </div>
+            <button class="btn btn-accent w-100">Guardar cambios</button>
+        </form>
+    </div>
+</div>
+
+{% endblock %}

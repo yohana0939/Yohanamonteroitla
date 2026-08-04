@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block title %}{{ producto.titulo }} — Yangh Store{% endblock %}
+{% block content %}
+
+<div class="container py-5">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{{ url_for('main.home') }}">Inicio</a></li>
+            <li class="breadcrumb-item"><a href="{{ url_for('main.tienda') }}">Tienda</a></li>
+            <li class="breadcrumb-item active">{{ producto.titulo }}</li>
+        </ol>
+    </nav>
+
+    <div class="row g-5 align-items-start">
+        <div class="col-md-5">
+            <img src="{{ url_for('static', filename='img/' + producto.imagen) }}" class="img-fluid rounded-4 shadow-sm" alt="{{ producto.titulo }}">
+        </div>
+        <div class="col-md-7">
+            <span class="badge badge-categoria mb-2">{{ producto.categoria }}</span>
+            <h1 class="mb-3">{{ producto.titulo }}</h1>
+            <p class="fs-3 fw-bold text-price">${{ "%.2f"|format(producto.precio) }}</p>
+            <p class="text-muted">{{ producto.detalle }}</p>
+            <p class="small {{ 'text-success' if producto.stock > 0 else 'text-danger' }}">
+                {% if producto.stock > 0 %}✔ En stock ({{ producto.stock }} disponibles){% else %}Agotado{% endif %}
+            </p>
+
+            <form method="POST" action="{{ url_for('cart.agregar', producto_id=producto.id) }}" class="d-flex gap-2 mt-4">
+                <input type="number" name="cantidad" value="1" min="1" max="{{ producto.stock }}" class="form-control" style="max-width:100px" {% if producto.stock <= 0 %}disabled{% endif %}>
+                <button class="btn btn-accent btn-lg" type="submit" {% if producto.stock <= 0 %}disabled{% endif %}>Agregar al carrito</button>
+            </form>
+        </div>
+    </div>
+
+    {% if relacionados %}
+    <div class="mt-5">
+        <h2 class="h4 mb-4">También te puede interesar</h2>
+        <div class="row g-4">
+            {% for producto in relacionados %}
+                {% include "_producto_card.html" %}
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+</div>
+
+{% endblock %}

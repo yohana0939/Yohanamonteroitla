@@ -1,0 +1,42 @@
+{% extends "admin/layout.html" %}
+{% block title %}Productos — Admin{% endblock %}
+{% block admin_content %}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="h3 mb-0">Productos</h1>
+    <a href="{{ url_for('admin.producto_nuevo') }}" class="btn btn-accent">+ Nuevo producto</a>
+</div>
+
+<div class="table-responsive">
+    <table class="table align-middle">
+        <thead>
+            <tr>
+                <th></th>
+                <th>Título</th>
+                <th>Categoría</th>
+                <th>Precio</th>
+                <th>Stock</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for producto in productos %}
+            <tr>
+                <td><img src="{{ url_for('static', filename='img/' + producto.imagen) }}" class="admin-thumb" alt=""></td>
+                <td>{{ producto.titulo }}</td>
+                <td><span class="badge-categoria">{{ producto.categoria }}</span></td>
+                <td>${{ "%.2f"|format(producto.precio) }}</td>
+                <td class="{{ 'text-danger fw-bold' if producto.stock <= 5 else '' }}">{{ producto.stock }}</td>
+                <td class="text-end">
+                    <a href="{{ url_for('admin.producto_editar', producto_id=producto.id) }}" class="btn btn-outline-secondary btn-sm">Editar</a>
+                    <form method="POST" action="{{ url_for('admin.producto_eliminar', producto_id=producto.id) }}" class="d-inline" onsubmit="return confirm('¿Eliminar {{ producto.titulo }}?');">
+                        <button class="btn btn-outline-danger btn-sm">Eliminar</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}

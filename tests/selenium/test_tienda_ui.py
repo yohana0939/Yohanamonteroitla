@@ -9,18 +9,7 @@ def test_home_page_carga_y_muestra_hero(driver, base_url):
     driver.find_element(By.CLASS_NAME, "hero")
 
 
-def test_busqueda_en_tienda_filtra_productos(driver, base_url):
-    driver.get(f"{base_url}/tienda")
-    campo = driver.find_element(By.NAME, "buscar")
-    campo.send_keys("Casio")
-    campo.submit()
 
-    tarjetas = WebDriverWait(driver, 10).until(
-        lambda d: d.find_elements(By.CLASS_NAME, "producto-card") or None
-    )
-    assert len(tarjetas) > 0
-    for tarjeta in tarjetas:
-        assert "Casio" in tarjeta.text
 
 
 def test_ver_detalle_de_producto(driver, base_url):

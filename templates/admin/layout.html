@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container-fluid py-4">
+    <div class="row">
+        <aside class="col-lg-2 mb-4">
+            <div class="admin-sidebar">
+                <h6 class="text-uppercase text-muted small mb-3">Panel admin</h6>
+                <nav class="nav flex-column gap-1">
+                    <a class="admin-nav-link {% if request.endpoint == 'admin.dashboard' %}active{% endif %}" href="{{ url_for('admin.dashboard') }}">📊 Resumen</a>
+                    <a class="admin-nav-link {% if request.endpoint and request.endpoint.startswith('admin.producto') %}active{% endif %}" href="{{ url_for('admin.productos') }}">📦 Productos</a>
+                    <a class="admin-nav-link {% if request.endpoint and request.endpoint.startswith('admin.pedido') %}active{% endif %}" href="{{ url_for('admin.pedidos') }}">🧾 Pedidos</a>
+                    <a class="admin-nav-link {% if request.endpoint == 'admin.usuarios' %}active{% endif %}" href="{{ url_for('admin.usuarios') }}">👥 Usuarios</a>
+                    <a class="admin-nav-link" href="{{ url_for('main.home') }}">← Volver a la tienda</a>
+                </nav>
+            </div>
+        </aside>
+        <section class="col-lg-10">
+            {% block admin_content %}{% endblock %}
+        </section>
+    </div>
+</div>
+{% endblock %}

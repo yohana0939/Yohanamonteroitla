@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block title %}Tienda — Yangh Store{% endblock %}
+{% block content %}
+
+<div class="container py-5">
+    <h1 class="mb-4">Tienda</h1>
+
+    <form method="GET" class="row g-2 mb-4">
+        <div class="col-md-8">
+            <input type="text" name="buscar" value="{{ buscar }}" class="form-control" placeholder="Buscar productos...">
+        </div>
+        <div class="col-md-3">
+            <select name="categoria" class="form-select">
+                <option value="">Todas las categorías</option>
+                {% for cat in categorias %}
+                <option value="{{ cat }}" {% if cat == categoria_actual %}selected{% endif %}>{{ cat }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="col-md-1">
+            <button class="btn btn-accent w-100">Ir</button>
+        </div>
+    </form>
+
+    {% if not productos %}
+    <p class="text-muted text-center py-5">No se encontraron productos con esos criterios.</p>
+    {% else %}
+    <div class="row g-4">
+        {% for producto in productos %}
+            {% include "_producto_card.html" %}
+        {% endfor %}
+    </div>
+    {% endif %}
+</div>
+
+{% endblock %}
